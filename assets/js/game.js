@@ -39,46 +39,56 @@ var fightOrSkip = function() {
 
 // define fight function
 var fight = function(enemy) {
+    var isPlayerTurn = true;
+
+    if (Math.random() > 0.5){
+        isPlayerTurn = false;
+    }
+
     while(enemy.health > 0 && playerInfo.health > 0){
         // ask player if they'd like to fight or run
-
-        if (fightOrSkip()) {
-            break;
-        }
-
-        // Subtract the value of playerInfo.attack from the value of enemy.health
-        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-        enemy.health = Math.max(0, enemy.health - damage);
-        console.log(
-                playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
-        );
-
-        // Check enemy's health
-        if (enemy.health <= 0) {
-            window.alert(enemy.name + " has died!");
-            playerInfo.money = playerInfo.money + 20;
-            console.log(playerInfo.name + " now has " + playerInfo.money + " coins.")
-            break;
-        } else {
-            window.alert(enemy.name + " still has " + enemy.health + " health left.");
-        }
-
-            // Subtract the value of enemy.attack from the value of playerInfo.health
-        var damage = randomNumber(enemy.attack -3, enemy.attack);
-        playerInfo.health = Math.max(0, playerInfo.health - damage);
-
-            //Log a resulting message to the consoe so we know it worked
-        console.log(
-            enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
-        );
-
-            // Check player's health
-        if (playerInfo.health <= 0) {
-                window.alert(playerInfo.name + " has died!");
-            break;
-            } else {
-                window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
+        if (isPlayerTurn) {
+            if (fightOrSkip()) {
+                break;
             }
+
+            // Subtract the value of playerInfo.attack from the value of enemy.health
+            var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+            enemy.health = Math.max(0, enemy.health - damage);
+            console.log(
+                    playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
+            );
+
+            // Check enemy's health
+            if (enemy.health <= 0) {
+                window.alert(enemy.name + " has died!");
+                playerInfo.money = playerInfo.money + 20;
+                console.log(playerInfo.name + " now has " + playerInfo.money + " coins.")
+                break;
+            } else {
+                window.alert(enemy.name + " still has " + enemy.health + " health left.");
+            }
+
+        } else {
+
+                // Subtract the value of enemy.attack from the value of playerInfo.health
+            var damage = randomNumber(enemy.attack -3, enemy.attack);
+            playerInfo.health = Math.max(0, playerInfo.health - damage);
+
+                //Log a resulting message to the consoe so we know it worked
+            console.log(
+                enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
+            );
+
+                // Check player's health
+            if (playerInfo.health <= 0) {
+                    window.alert(playerInfo.name + " has died!");
+                break;
+                } else {
+                    window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
+                }
+        }
+        isPlayerTurn = !isPlayerTurn;
     } //end of while loop
 }; //end of fight function
 
