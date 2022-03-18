@@ -120,12 +120,22 @@ var startGame = function() {
 };
 
 var endGame = function() {
-    if (playerInfo.health > 0) {
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("The game has now ended. Let's see how you did!");
+
+    var highScore = localStorage.getItem("highscore");
+    if (highScore === null) {
+        highScore = 0;
     }
-    else {
-        window.alert("The game has now ended. Let's see how you did!")
-    }
+        if (playerInfo.money > highScore) {
+            localStorage.setItem("highscore", playerInfo.money);
+            localStorage.setItem("name", playerInfo.name);
+
+            window.alert("You beat the high score! New high score is " + playerInfo.money + ".");
+        }
+        else {
+            window.alert("You did not beat the current high score of " + highScore + ".");
+        }
+    
     var playAgainConfirm = window.confirm("Would you like to play again?");
     if (playAgainConfirm) {
         startGame();
